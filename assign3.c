@@ -10,9 +10,10 @@ void function2() {
 }
 
 int main() {
-	printf("Program is running.\n");
 	atexit(function2);
 	atexit(function1);
+	printf("Program is runnning.\n");
+	exit(0);
 	printf("End of program\n");
 	return 0;
 }
