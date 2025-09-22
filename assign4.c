@@ -14,16 +14,20 @@ int main() {
 		int child1_status, child2_status;
 		waitpid(ret1, &child1_status,0);
 		waitpid(ret2, &child2_status,0);
-		printf("Child 1 exit status: %d\n", WEXITSTATUS(child1_status));
-		printf("Child 2 exit status: %d\n", WEXITSTATUS(child2_status));
-		if (child1_status == 0)
-			printf("Child 1 exited normally\n");
-		else
-			printf("Child 1 exited with an error\n");
-		if (child2_status == 0)
-                        printf("Child 2 exited normally\n");
-                else
-                        printf("Child 2 exited with an error\n");
+		if (WIFEXITED(child1_status) & WIFEXITED(child2_status)) {
+			int code1 = WEXITSTATUS(child1_status);
+			int code2 = WEXITSTATUS(child2_status);
+			printf("Child 1 exit status: %d\n", code1);
+			printf("Child 2 exit status: %d\n", code2);
+			if (code1 == 0)
+				printf("Child 1 exited normally\n");
+			else
+				printf("Child 1 exited with an error\n");
+			if (code2 == 0)
+				printf("Child 2 exited normally\n");
+			else
+				printf("Child 2 exited with an error\n");
+		}
 	}
 	return 0;
 }
